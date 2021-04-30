@@ -32,6 +32,7 @@ function displayData(taskList) {
         dataRow.getElementById("tCompleted").textContent = taskList[i].completed;
         dataRow.getElementById("tId").textContent = taskList[i].id;
         dataRow.getElementById("tButtons").setAttribute("data-id", taskList[i].id);
+        dataRow.getElementById("tTable").setAttribute("data-id", taskList[i].id);
 
         resultsBody.appendChild(dataRow);
     }
@@ -57,8 +58,9 @@ function saveNewTask() {
 
 function isDone(button){
     const resultsBody = document.getElementById("resultsBody");
-    const data = resultsBody.querySelectorAll("td");
-    // TODO:  find out how to get ID and update proper rows
+    const trHead = button.parentElement.parentElement;
+    const currentId = trHead.getAttribute("data-id");
+    const data = trHead.querySelectorAll("td");
     
     let id = button.parentElement.getAttribute("data-id");
     let index = getIndex(id);
@@ -66,7 +68,6 @@ function isDone(button){
 
     let completed = data[4].textContent;
     if(completed == "false"){
-        console.log("Completed");
         data[0].classList.add("complete");
         data[1].classList.add("complete");
         data[2].classList.add("complete");
@@ -77,7 +78,6 @@ function isDone(button){
         button.classList.add("btn-secondary");
     }
     else if (completed == "true"){
-        console.log("Not Completed");
         data[0].classList.remove("complete");
         data[2].classList.remove("complete");
         data[1].classList.remove("complete");
@@ -134,9 +134,9 @@ function generateId() {
 
 
 function getIndex(id) {
-    let t = JSON.parse(localStorage.getItem("tasks"));
-    for (let i = 0; i < t.length; i++) {
-        if (t[i].id === id) {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
             return i;
         }
     }
@@ -145,10 +145,10 @@ function getIndex(id) {
 
 
 function findById(id) {
-    let t = JSON.parse(localStorage.getItem("tasks"));
-    for (let i = 0; i < t.length; i++) {
-        if (t[i].id === id) {
-            return t[i];
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
+            return tasks[i];
         }
     }
     return "Couldn't Find Task";
