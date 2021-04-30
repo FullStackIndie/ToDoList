@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+
+<!--
+  TODO: Change Title
+-->
+<head>
+  <title>To Do List</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/site.css">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a9c823f698.js" crossorigin="anonymous"></script>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Courgette&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+
+</head>
+
+<body onload="loadTasks()">
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="NavBar-BG">
+      <!--
+        TODO: Change Header name
+      -->
+      <a class="navbar-brand" href="#">To Do List</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="theApp.html">The App<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="seeTheCode.html">See The Code</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+<div class="jumbotron jumbotron-fluid header">
+<div class="container hero"></div>
+</div>
+  <!--
+    TODO: Change The Spacing and alignment
+  -->
+  <!-- Begin page content -->
+<main role="main" class="container-fluid">
+  <div class="container">
+    <div class="row">
+      <div class="col">   
+      <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask" class="btn btn-dark">Create Task</button>
+
+    </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+      <div class="col-3">
+
+      </div>
+      <div class="col-3">
+
+      </div>
+      <div class="col-3">
+      </div>
+    </div>
+  </div>
+  <hr>
+  <table class="table table-striped" id="todoList">
+    <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <th>Created</th>
+        <th>Due Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="resultsBody">
+      <!-- Data Goes Here -->
+    </tbody>
+  </table>
+</main>
+
+  <!--
+    TODO: Change The Footer Title
+  -->
+  <footer class="footer mt-5" id="Footer-BG">
+    <div class="container">
+      <span class="text-muted">&copy; John Murphy</span>
+    </div>
+  </footer>
+
+
+
+<template id="Data-Template">
+  <tr>
+    <td id="tTitle"></td>
+    <td id="tCreated"></td>
+    <td id="tDueDate"></td>
+    <td id="tButtons" data-id="">
+      <button onclick="isDone(this)" class="btn btn-success"><i class="fas fa-check"></i></button>
+      <button onclick="editTask(this)" data-toggle="modal" data-target="#editTask" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+      <button onclick="deleteTask(this)" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+      <i data-toggle="tooltip" data-placement="top" title="Tooltip on top" onmouseenter="qTooltip(this, true)"
+        onmouseleave="qTooltip(this, false)" class="fas fa-question-circle"></i>
+    </td>
+    <td class="d-none" id="tCompleted"></td>
+    <td class="d-none" id="tId"></td>
+</tr>
+</template>
+
+<div class="modal" id="newTask">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New Task</h5>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="taskTitle">Task Title</label>
+            <input type="text" class="form-control" id="taskTitle" aria-label="Enter Title">
+          </div>
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="date" class="form-control" id="dueDate" aria-label="Enter Date">
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" onclick="saveNewTask()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="editTask">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Task</h5>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="taskTitle">Task Title</label>
+            <input type="text" class="form-control" id="eTaskTitle" aria-label="Enter Title">
+          </div>
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="date" class="form-control" id="eDueDate" aria-label="Enter Date">
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="editModal" data-id="" type="submit" onclick="editSaveTask(this)" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+    </div>
+    </div>
+  </div>
+</div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- SweetAlert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="/js/site.js"></script>
+</body>
+
+</html>                   
