@@ -121,13 +121,13 @@ h1 {
 }
 
 p {
- font-family: 'M PLUS Rounded 1c',
- sans-serif;
- font-size: x-large;
+  font-family: 'M PLUS Rounded 1c',
+  sans-serif;
+  font-size: x-large;
 }
 
 #Alignment {
-padding: 1em;;
+  padding: 1em;;
 }
 
 #Footer-BG {
@@ -157,10 +157,7 @@ padding: 1em;;
   padding-top: 5em;
 }
 
-hr {
-  border: 3px solid #014474;
-  border-radius: 2px;
-}
+
 
 @media (min-width: 768px) {
   .header {

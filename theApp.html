@@ -66,34 +66,38 @@
 <main role="main" class="container-fluid">
   <div class="container">
     <div class="row">
-      <div class="col">   
-      <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask" class="btn btn-dark">Create Task</button>
-      <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask" class="btn btn-dark">Clear Task</button>
-
-    </div>
-
-    </div>
-    <div class="row">
-
-    </div>
-    <div class="row">
-      <div class="col-3">
-
+      <div class="col-2">
+        <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask"
+          class="btn btn-dark">Create Task</button>
       </div>
-      <div class="col-3">
-
+      <div class="col-2">
+        <button onclick="clearAllTasks()" type="button" class="btn btn-dark">Clear All Tasks</button>
       </div>
-      <div class="col-3">
+      <div class="col-2">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Filter
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" onclick="filterTitle()" href="#">Title</a>
+            <a class="dropdown-item" onclick="filterCreated()" href="#">Created</a>
+            <a class="dropdown-item" onclick="filterDueDate()" href="#">Due Date</a>
+            <a class="dropdown-item" onclick="filterDueTime()" href="#">Due Time</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <hr>
+
   <table class="table table-striped" id="todoList">
     <thead class="thead-dark">
       <tr>
         <th>Title</th>
         <th>Created</th>
         <th>Due Date</th>
+        <th>Due Time</th>
         <th></th>
       </tr>
     </thead>
@@ -113,22 +117,23 @@
   </footer>
 
 
-
 <template id="Data-Template">
   <tr id="tTable" data-id="">
     <td id="tTitle"></td>
     <td id="tCreated"></td>
     <td id="tDueDate"></td>
+    <td id="tDueTime"></td>
     <td id="tButtons" data-id="">
       <button onclick="isDone(this)" class="btn btn-success"><i class="fas fa-check"></i></button>
-      <button onclick="editTask(this)" data-toggle="modal" data-target="#editTask" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-      <button onclick="deleteTask(this)" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-      <i data-toggle="tooltip" data-placement="top" title="Tooltip on top" onmouseenter="qTooltip(this, true)"
+      <button onclick="editTask(this)" data-toggle="modal" data-target="#editTask" class="btn btn-primary"><i
+          class="fas fa-pencil-alt"></i></button>
+      <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+      <i data-toggle="tooltip" data-placement="right" title="Tooltip on top" onmouseenter="qTooltip(this, true)"
         onmouseleave="qTooltip(this, false)" class="fas fa-question-circle"></i>
     </td>
     <td class="d-none" id="tCompleted"></td>
     <td class="d-none" id="tId"></td>
-</tr>
+  </tr>
 </template>
 
 <div class="modal" id="newTask">
@@ -145,6 +150,10 @@
           <div class="form-group">
             <label for="dueDate">Due Date</label>
             <input type="date" class="form-control" id="dueDate" aria-label="Enter Date">
+          </div>
+          <div class="form-group">
+            <label for="dueTime">Due Time</label>
+            <input type="time" class="form-control" id="dueTime" aria-label="Enter Time">
           </div>
       </div>
       <div class="modal-footer">
@@ -163,12 +172,16 @@
       </div>
       <div class="modal-body">
           <div class="form-group">
-            <label for="taskTitle">Task Title</label>
+            <label for="eTaskTitle">Task Title</label>
             <input type="text" class="form-control" id="eTaskTitle" aria-label="Enter Title">
           </div>
           <div class="form-group">
-            <label for="dueDate">Due Date</label>
+            <label for="eDueDate">Due Date</label>
             <input type="date" class="form-control" id="eDueDate" aria-label="Enter Date">
+          </div>
+          <div class="form-group">
+            <label for="eDueTime">Due Time</label>
+            <input type="time" class="form-control" id="eDueTime" aria-label="Enter Date">
           </div>
       </div>
       <div class="modal-footer">
