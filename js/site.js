@@ -1,6 +1,7 @@
 function loadTasks() {
     let tasks = getTasks();
     displayData(tasks);
+    tTip();
 }
 
 function getTasks() {
@@ -39,7 +40,7 @@ function displayData(taskList) {
     }
 }
 
-function saveNewTask() {
+function createNewTask() {
     let tasks = getTasks();
 
     
@@ -68,7 +69,6 @@ function isDone(button){
 
     let completed = data[5].textContent;
     if(completed == "false"){
-        console.log(data[3].innerHTML.toString());
         data[0].classList.add("complete");
         data[1].classList.add("complete");
         data[2].classList.add("complete");
@@ -98,10 +98,15 @@ function editTask(button){
     const currentId = button.parentElement.getAttribute("data-id");
     let index = getIndex(currentId);
     let allTasks = getTasks();
+    if(allTasks[index].completed == "true"){
+        editError();
+        return;
+    }
+    $(function () { $('#editTask').modal(); })
+    
     document.getElementById("eTaskTitle").value = allTasks[index].title;
     document.getElementById("eDueDate").value = unparseDate(allTasks[index].dueDate);
     document.getElementById("eDueTime").value = unparseTime(allTasks[index].dueTime);
-    console.log(unparseTime(allTasks[index].dueTime));
     document.getElementById("editModal").setAttribute("data-id", currentId);
 }
 
@@ -117,8 +122,16 @@ function editSaveTask(button) {
     displayData(tasks);
 }
 
+function editError(){
+    Swal.fire(
+        'Task is already completed!',
+        'Mark as incomplete before editing',
+        'error'
+    )
+}
 
 function deleteTask(button){
+    $('[data-tooltip="tooltip"]').tooltip('hide');
     const resultsBody = document.getElementById("resultsBody");
     const data = resultsBody.querySelectorAll("td");
     const currentId = button.parentElement.getAttribute("data-id");
@@ -160,25 +173,59 @@ function findById(id) {
     return "Couldn't Find Task";
 }
 
-function parseDate(date){
-    let result = date.split('-');
+function getDigits(d) {
+    if (d < 10) {
+        if(d[0] == 0 && d[1] != 0){
+            return d;
+        }
+        else{
+            return `0${d}`;
+        }
+    }
+    return d;
+}
+
+function parseDate(d){
+    let result = d.split('-');
+    for(let i = 0; i < result.length; i++){
+        if (result[i] == '') {
+            let date = new Date();
+            result[0] = getDigits(date.getMonth() + 1);
+            result[1] = getDigits(date.getDate());
+            result[2] = date.getFullYear();
+            return `${result[0]}/${result[1]}/${result[2]}`;
+        }
+    }
     return `${result[1]}/${result[2]}/${result[0]}`;
 }
 
 function unparseDate(date){
     let result = date.split('/');
+    result[0] = getDigits(result[0]);
+    result[1] = getDigits(result[1]);
     return `${result[2]}-${result[0]}-${result[1]}`;
 }
 
 function parseTime(t) {
     let time = t.split(':');
-    let newTime = "";
-    if (time[0] > 12) {
-        return newTime += `${time[0] - 12}:${time[1]} PM`;
-    } else if (time[0] < 12) {
-        return newTime += `${time[0]}:${time[1]} AM`;
+    if (t == "") {
+        let date = new Date();
+        let hrs = getDigits(date.getHours());
+        let min = getDigits(date.getMinutes());
+        if (parseInt(hrs) > 12) {
+            return  `${parseInt(hrs) - 12}:${min} PM`;
+        } else if (arseInt(hrs) < 12) {
+            return  `${hrs}:${min} AM`;
+        }
     }
-    return newTime += `${time[0]}:${time[1]} PM`;
+    else{
+        if (parseInt(time[0]) > 12) {
+            return  `${parseInt(time[0]) - 12}:${time[1]} PM`;
+        } else if (parseInt(time[0]) < 12) {
+            return  `${time[0]}:${time[1]} AM`;
+        }
+        return `${time[0]}:${time[1]} PM`;
+    }
 }
 
 function unparseTime(t){
@@ -187,8 +234,8 @@ function unparseTime(t){
     let meridian = fullTime[1];
     let newTime = "";
     if(meridian == "PM"){
-        if(time[0] == 12){
-            return newTime += `${time[0]}:${time[1]}`;
+        if (parseInt(time[0]) == 12) {
+            return newTime += `${parseInt(time[0])}:${time[1]}`;
         } else{
             return  newTime += `${parseInt(time[0]) + 12}:${time[1]}`;
         }
@@ -213,6 +260,14 @@ function qTooltip(icon, isHover) {
     }
 }
 
+
+function tTip(){
+    $('[data-tooltip="tooltip"]').tooltip(
+        {
+            delay:{show: 150, hide: 100}
+        }
+    );
+}
 
 function clearAllTasks(){
     Swal.fire({
@@ -251,18 +306,29 @@ function filterTitle(){
     displayData(tasks);
 }
 
-function filterCreated(){
+function filterDueTime(){
     let tasks = getTasks();
     tasks.sort(function (task1, task2) {
-    time1 = unparseTime(task1.dueTime);
-    time2 = unparseTime(task2.dueTime);
-    if (task1.created < task2.created) {
-        return -1;
-    }
-    if (task1.created > task2.created) {
-        return 1;
-    }
-    return 0;
+        if(task1.created == task2.created){
+            time1 = unparseTime(task1.dueTime);
+            time2 = unparseTime(task2.dueTime);
+            if (time1 < time2) {
+                return -1;
+            }
+            if (time1 > time2) {
+                return 1;
+            }
+            return 0;
+        }
+        else{
+            if (task1.created < task2.created) {
+                return -1;
+            }
+            if (task1.created > task2.created) {
+                return 1;
+            }
+            return 0;
+        }
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
     displayData(tasks);
@@ -283,16 +349,13 @@ function filterDueDate(){
     displayData(tasks);
 }
 
-function filterDueTime(){
+function filterCreated(){
     let tasks = getTasks();
     tasks.sort(function(task1, task2){
-        time1 = unparseTime(task1.dueTime);
-        time2 = unparseTime(task2.dueTime);
-        console.log(`${time1.toString()}  ${time2.toString()}`);
-    if (time1 < time2) {
+    if (task1.created < task2.created) {
         return -1;
     }
-    if (time1 > time2) {
+    if (task1.created > task2.created) {
         return 1;
     }
     return 0;
