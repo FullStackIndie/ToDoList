@@ -1,7 +1,6 @@
 function loadTasks() {
     let tasks = getTasks();
     displayData(tasks);
-    tTip();
 }
 
 function getTasks() {
@@ -267,6 +266,10 @@ function tTip(){
             delay:{show: 150, hide: 100}
         }
     );
+}
+
+function tTipHide(){
+    $('[data-tooltip="tooltip"]').tooltip('hide');
 }
 
 function clearAllTasks(){

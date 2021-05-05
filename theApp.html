@@ -114,15 +114,15 @@
     <td id="tDueDate"></td>
     <td id="tDueTime"></td>
     <td id="tButtons" data-id="">
-      <button onclick="isDone(this)" class="btn btn-success" onmouseenter="tTip()" data-tooltip="tooltip"
+      <button onclick="isDone(this)" class="btn btn-success" onmouseenter="tTip()" onmouseleave="tTipHide()" data-tooltip="tooltip"
         data-placement="top" title="Mark Complete/Incomplete">
         <i class="fas fa-check"></i>
       </button>
       <button data-tooltip="tooltip" onclick="editTask(this)"
-        class="btn btn-primary" onmouseenter="tTip()" data-placement="top" title="Edit Task">
+        class="btn btn-primary" onmouseenter="tTip()"  onmouseleave="tTipHide()" data-placement="top" title="Edit Task">
         <i class="fas fa-pencil-alt"></i>
       </button>
-      <button onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tTip()" data-tooltip="tooltip"
+      <button onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tTip()"  onmouseleave="tTipHide()" data-tooltip="tooltip"
         data-placement="top" title="Delete This Task">
         <i class="far fa-trash-alt"></i>
       </button>
