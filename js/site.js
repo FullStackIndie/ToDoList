@@ -34,7 +34,12 @@ function displayData(taskList) {
         dataRow.getElementById("tId").textContent = taskList[i].id;
         dataRow.getElementById("tButtons").setAttribute("data-id", taskList[i].id);
         dataRow.getElementById("tTable").setAttribute("data-id", taskList[i].id);
-
+        if(taskList[i].completed == "true"){
+            isDoneForce(dataRow, true);
+        }
+        else{
+            isDoneForce(dataRow, false);
+        }
         resultsBody.appendChild(dataRow);
     }
 }
@@ -42,7 +47,6 @@ function displayData(taskList) {
 function createNewTask() {
     let tasks = getTasks();
 
-    
     let task = {
         created: `${new Date().toLocaleString().split(',')[0]}`,
         title: document.getElementById("taskTitle").value,
@@ -51,10 +55,36 @@ function createNewTask() {
         completed: "false",
         id: generateId()
     };
-
+    if (document.getElementById("taskTitle").value == ""){
+    Swal.fire(
+        'Title is Blank',
+        'Please enter a valid Title name before saving',
+        'error'
+    ); 
+    $(function (){$('#newTask').modal();})
+    return;
+}
     tasks.push(task);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     displayData(tasks);
+}
+
+function isDoneForce(dataRow, isDone) {
+    if(isDone){
+        dataRow.getElementById("tTitle").classList.add("complete");
+        dataRow.getElementById("tCreated").classList.add("complete");
+        dataRow.getElementById("tDueDate").classList.add("complete");
+        dataRow.getElementById("tDueTime").classList.add("complete");
+        dataRow.getElementById("btnDone").classList.remove("btn-success");
+        dataRow.getElementById("btnDone").classList.add("btn-secondary");
+    } else {
+        dataRow.getElementById("tTitle").classList.remove("complete");
+        dataRow.getElementById("tCreated").classList.remove("complete");
+        dataRow.getElementById("tDueDate").classList.remove("complete");
+        dataRow.getElementById("tDueTime").classList.remove("complete");
+        dataRow.getElementById("btnDone").classList.remove("btn-secondary");
+        dataRow.getElementById("btnDone").classList.add("btn-success");
+    }
 }
 
 function isDone(button){
@@ -202,6 +232,7 @@ function unparseDate(date){
     let result = date.split('/');
     result[0] = getDigits(result[0]);
     result[1] = getDigits(result[1]);
+    console.log(`${result[2]}-${result[0]}-${result[1]}`);
     return `${result[2]}-${result[0]}-${result[1]}`;
 }
 
@@ -244,7 +275,7 @@ function unparseTime(t){
     }
 }
 
-function qTooltip(icon, isHover) {
+function questionTooltip(icon, isHover) {
     if (isHover) {
         icon.classList.remove("fa-question-circle");
         icon.classList.remove("fas");
@@ -260,7 +291,7 @@ function qTooltip(icon, isHover) {
 }
 
 
-function tTip(){
+function tooltipShow(){
     $('[data-tooltip="tooltip"]').tooltip(
         {
             delay:{show: 150, hide: 100}
@@ -268,7 +299,7 @@ function tTip(){
     );
 }
 
-function tTipHide(){
+function tooltipHide(){
     $('[data-tooltip="tooltip"]').tooltip('hide');
 }
 
@@ -294,6 +325,37 @@ function clearAllTasks(){
     })
 }
 
+
+function filterCompleted(){
+    let tasks = getTasks();
+    let completed = tasks.filter(c => c.completed == "true");
+    displayData(completed);
+}
+
+function filterIncomplete(){
+        let tasks = getTasks();
+        let completed = tasks.filter(c => c.completed == "false");
+        displayData(completed);
+}
+
+function filterOverdue(){
+        let tasks = getTasks();
+        let completed = tasks.filter(c => c.completed == "false");
+        let date = new Date();
+        let day = getDigits(date.getDate());
+        let month = getDigits(date.getMonth() + 1);
+        let year = date.getFullYear();
+        let today = `${month}/${day}/${year}`;
+        let overdue = completed.filter(o => unparseDate(o.dueDate) < unparseDate(today));
+        console.log(overdue);
+        displayData(overdue);
+}
+
+function filterShowAll(){
+    let tasks = getTasks();
+    displayData(tasks);
+}
+
 function filterTitle(){
     let tasks = getTasks();
     tasks.sort(function(task1, task2){
@@ -309,10 +371,10 @@ function filterTitle(){
     displayData(tasks);
 }
 
-function filterDueTime(){
+function filterDueDate(){
     let tasks = getTasks();
     tasks.sort(function (task1, task2) {
-        if(task1.created == task2.created){
+        if(task1.dueDate == task2.dueDate){
             time1 = unparseTime(task1.dueTime);
             time2 = unparseTime(task2.dueTime);
             if (time1 < time2) {
@@ -324,29 +386,14 @@ function filterDueTime(){
             return 0;
         }
         else{
-            if (task1.created < task2.created) {
+            if (task1.dueDate < task2.dueDate) {
                 return -1;
             }
-            if (task1.created > task2.created) {
+            if (task1.dueDate > task2.dueDate) {
                 return 1;
             }
             return 0;
         }
-    });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    displayData(tasks);
-}
-
-function filterDueDate(){
-    let tasks = getTasks();
-    tasks.sort(function(task1, task2){
-    if (task1.dueDate < task2.dueDate) {
-        return -1;
-    }
-    if (task1.dueDate > task2.dueDate) {
-        return 1;
-    }
-    return 0;
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
     displayData(tasks);

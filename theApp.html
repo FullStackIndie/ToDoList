@@ -79,10 +79,13 @@
             Filter Tasks
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" onclick="filterCompleted()" href="#">Completed</a>
+            <a class="dropdown-item" onclick="filterIncomplete()" href="#">Incomplete</a>
+            <a class="dropdown-item" onclick="filterOverdue()" href="#">Overdue</a>
             <a class="dropdown-item" onclick="filterTitle()" href="#">Title</a>
             <a class="dropdown-item" onclick="filterCreated()" href="#">Created</a>
             <a class="dropdown-item" onclick="filterDueDate()" href="#">Due Date</a>
-            <a class="dropdown-item" onclick="filterDueTime()" href="#">Due Time</a>
+            <a class="dropdown-item" onclick="filterShowAll()" href="#">Show All</a>
           </div>
         </div>
       </div>
@@ -114,15 +117,19 @@
     <td id="tDueDate"></td>
     <td id="tDueTime"></td>
     <td id="tButtons" data-id="">
-      <button onclick="isDone(this)" class="btn btn-success" onmouseenter="tTip()" onmouseleave="tTipHide()" data-tooltip="tooltip"
+      <button id="btnDone" onclick="isDone(this)" class="btn btn-success" onmouseenter="tooltipShow()"
+        onmouseleave="tooltipHide()" data-tooltip="tooltip"
         data-placement="top" title="Mark Complete/Incomplete">
         <i class="fas fa-check"></i>
       </button>
-      <button data-tooltip="tooltip" onclick="editTask(this)"
-        class="btn btn-primary" onmouseenter="tTip()"  onmouseleave="tTipHide()" data-placement="top" title="Edit Task">
+      <button id="btnEdit" data-tooltip="tooltip" onclick="editTask(this)"
+        class="btn btn-primary" onmouseenter="tooltipShow()" onmouseleave="tooltipHide()" data-placement="top"
+        title="Edit
+        Task">
         <i class="fas fa-pencil-alt"></i>
       </button>
-      <button onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tTip()"  onmouseleave="tTipHide()" data-tooltip="tooltip"
+      <button id="btnDelete" onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tooltipShow()"
+        onmouseleave="tooltipHide()" data-tooltip="tooltip"
         data-placement="top" title="Delete This Task">
         <i class="far fa-trash-alt"></i>
       </button>
