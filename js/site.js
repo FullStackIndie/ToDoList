@@ -252,9 +252,9 @@ function parseTime(t) {
         if (parseInt(time[0]) > 12) {
             return  `${parseInt(time[0]) - 12}:${time[1]} PM`;
         } else if (parseInt(time[0]) < 12) {
-            return  `${time[0]}:${time[1]} AM`;
+            return  `${getDigits(time[0])}:${getDigits(time[1])} AM`;
         }
-        return `${time[0]}:${time[1]} PM`;
+        return `${getDigits(time[0])}:${getDigits(time[1])} PM`;
     }
 }
 
