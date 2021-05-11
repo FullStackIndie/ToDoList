@@ -40,9 +40,10 @@ body>.container {
 }
 
 pre>code {
-  padding-left: 10em;;
+  padding-left: 10em;
+  ;
   font-size: 90%;
-  color:#0F2027
+  color: #0F2027
 }
 
 .row>div {
@@ -122,12 +123,13 @@ h1 {
 
 p {
   font-family: 'M PLUS Rounded 1c',
-  sans-serif;
+    sans-serif;
   font-size: x-large;
 }
 
 #Alignment {
-  padding: 1em;;
+  padding: 1em;
+  ;
 }
 
 #Footer-BG {
@@ -139,13 +141,14 @@ p {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#NavBar-BG {
+#navbar-bg {
   background: #0F2027;
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
   /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  transition:0.3s;
 }
 
 #MainTop-BG {
@@ -183,15 +186,73 @@ p {
 
 .tooltip-inner {
   color: rgb(255, 255, 255);
-  background:rgb(142, 189, 142);
+  background: rgb(142, 189, 142);
 }
 
-.tooltip-inner > #edit {
+.tooltip-inner>#edit {
   color: rgb(192, 197, 236);
-  background:rgb(55, 65, 207);
+  background: rgb(55, 65, 207);
 }
 
-.tooltip-inner > #trash {
+.tooltip-inner>#trash {
   color: rgb(240, 178, 178);
-  background:rgb(214, 90, 90);
+  background: rgb(214, 90, 90);
+}
+
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #161515e1;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #948f8f;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#maincontent {
+  transition: margin-left 0.3s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+#jumbotron{
+  transition:0.3s;
 }

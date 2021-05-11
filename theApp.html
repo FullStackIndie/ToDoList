@@ -4,6 +4,7 @@
 <!--
   TODO: Change Title
 -->
+
 <head>
   <title>To Do List</title>
   <!-- Required meta tags -->
@@ -18,17 +19,18 @@
 
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/a9c823f698.js" crossorigin="anonymous"></script>
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Courgette&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&family=M+PLUS+Rounded+1c&display=swap"
+    rel="stylesheet">
 </head>
 
 <body onload="loadTasks()">
   <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="NavBar-BG">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="navbar-bg">
       <!--
         TODO: Change Header name
       -->
@@ -55,24 +57,34 @@
       </div>
     </nav>
   </header>
-<div class="jumbotron jumbotron-fluid header">
-<div class="container hero"></div>
-</div>
+  <div class="jumbotron jumbotron-fluid header" id="jumbotron">
+    <div class="container hero"></div>
+  </div>
   <!--
     TODO: Change The Spacing and alignment
   -->
   <!-- Begin page content -->
-<main role="main" class="container-fluid">
-  <div class="container">
-    <div class="row">
-      <div class="col-2">
-        <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask"
-          class="btn btn-dark">Create Task</button>
-      </div>
-      <div class="col-2">
+
+
+  <main role="main" class="container-fluid" id="maincontent">
+    <div id="sidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeSideNav()">&times;</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Clients</a>
+      <a href="#">Contact</a>
+    </div>
+
+
+
+    <div class="container">
+      <i class="fas fa-align-left" onclick="openSideNav()"></i>
+      <div class="row">
+        <div class="col-6">
+          <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask"
+            class="btn btn-dark">Create Task</button>
+        </div>
         <button onclick="clearAllTasks()" type="button" class="btn btn-dark">Clear All Tasks</button>
-      </div>
-      <div class="col-2">
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -89,55 +101,53 @@
           </div>
         </div>
       </div>
+      <hr>
+      <div class="col-6">
+        <table class="table table-striped" id="todoList">
+          <thead class="thead-dark">
+            <tr>
+              <th>Title</th>
+              <th>Created</th>
+              <th>Due Date</th>
+              <th>Due Time</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody">
+            <!-- Data Goes Here -->
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <hr>
-
-  <table class="table table-striped" id="todoList">
-    <thead class="thead-dark">
-      <tr>
-        <th>Title</th>
-        <th>Created</th>
-        <th>Due Date</th>
-        <th>Due Time</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="resultsBody">
-      <!-- Data Goes Here -->
-    </tbody>
-  </table>
-</main>
+    </div>
+  </main>
 
 
-<template id="Data-Template">
-  <tr id="tTable" data-id="">
-    <td id="tTitle"></td>
-    <td id="tCreated"></td>
-    <td id="tDueDate"></td>
-    <td id="tDueTime"></td>
-    <td id="tButtons" data-id="">
-      <button id="btnDone" onclick="isDone(this)" class="btn btn-success" onmouseenter="tooltipShow()"
-        onmouseleave="tooltipHide()" data-tooltip="tooltip"
-        data-placement="top" title="Mark Complete/Incomplete">
-        <i class="fas fa-check"></i>
-      </button>
-      <button id="btnEdit" data-tooltip="tooltip" onclick="editTask(this)"
-        class="btn btn-primary" onmouseenter="tooltipShow()" onmouseleave="tooltipHide()" data-placement="top"
-        title="Edit
+  <template id="Data-Template">
+    <tr id="tTable" data-id="">
+      <td id="tTitle"></td>
+      <td id="tCreated"></td>
+      <td id="tDueDate"></td>
+      <td id="tDueTime"></td>
+      <td id="tButtons" data-id="">
+        <button id="btnDone" onclick="isDone(this)" class="btn btn-success" onmouseenter="tooltipShow()"
+          onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top" title="Mark Complete/Incomplete">
+          <i class="fas fa-check"></i>
+        </button>
+        <button id="btnEdit" data-tooltip="tooltip" onclick="editTask(this)" class="btn btn-primary"
+          onmouseenter="tooltipShow()" onmouseleave="tooltipHide()" data-placement="top" title="Edit
         Task">
-        <i class="fas fa-pencil-alt"></i>
-      </button>
-      <button id="btnDelete" onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tooltipShow()"
-        onmouseleave="tooltipHide()" data-tooltip="tooltip"
-        data-placement="top" title="Delete This Task">
-        <i class="far fa-trash-alt"></i>
-      </button>
-    </td>
-    <td class="d-none" id="tCompleted"></td>
-    <td class="d-none" id="tId"></td>
-  </tr>
-</template>
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button id="btnDelete" onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tooltipShow()"
+          onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top" title="Delete This Task">
+          <i class="far fa-trash-alt"></i>
+        </button>
+      </td>
+      <td class="d-none" id="tCompleted"></td>
+      <td class="d-none" id="tId"></td>
+    </tr>
+  </template>
 
 
 
@@ -152,13 +162,13 @@
 
 
 
-<div class="modal" id="newTask">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create New Task</h5>
-      </div>
-      <div class="modal-body">
+  <div class="modal" id="newTask">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create New Task</h5>
+        </div>
+        <div class="modal-body">
           <div class="form-group">
             <label for="taskTitle">Task Title</label>
             <input type="text" class="form-control" id="taskTitle" aria-label="Enter Title">
@@ -171,22 +181,23 @@
             <label for="dueTime">Due Time</label>
             <input type="time" class="form-control" id="dueTime" aria-label="Enter Time">
           </div>
-      </div>
-      <div class="modal-footer">
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" onclick="createNewTask()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-    </div>
+          <button type="submit" onclick="createNewTask()" class="btn btn-primary" data-dismiss="modal">Save
+            changes</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="modal" id="editTask">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Task</h5>
-      </div>
-      <div class="modal-body">
+  <div class="modal" id="editTask">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Task</h5>
+        </div>
+        <div class="modal-body">
           <div class="form-group">
             <label for="eTaskTitle">Task Title</label>
             <input type="text" class="form-control" id="eTaskTitle" aria-label="Enter Title">
@@ -199,14 +210,15 @@
             <label for="eDueTime">Due Time</label>
             <input type="time" class="form-control" id="eDueTime" aria-label="Enter Date">
           </div>
-      </div>
-      <div class="modal-footer">
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="editModal" data-id="" type="submit" onclick="editSaveTask(this)" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-    </div>
+          <button id="editModal" data-id="" type="submit" onclick="editSaveTask(this)" class="btn btn-primary"
+            data-dismiss="modal">Save changes</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -223,4 +235,4 @@
   <script src="/js/site.js"></script>
 </body>
 
-</html>                   
+</html>
