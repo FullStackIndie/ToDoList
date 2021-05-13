@@ -1,17 +1,9 @@
-function openSideNav() {
-    document.getElementById("sidenav").style.width = "250px";
-    document.getElementById("maincontent").style.marginLeft = "250px";
-    document.getElementById("navbar-bg").style.marginLeft = "250px";
-    document.getElementById("jumbotron").style.marginLeft = "250px";
+function toggleSideNav() {
+    $(".sidenav").toggleClass("active");
+    $("#maincontent").toggleClass("active");
+    $("#navbar-bg").toggleClass("active");
+    $("#openclosebtn").toggleClass("active");
 }
-
-function closeSideNav() {
-    document.getElementById("sidenav").style.width = "0";
-    document.getElementById("maincontent").style.marginLeft = "0";
-    document.getElementById("navbar-bg").style.marginLeft = "0";
-    document.getElementById("jumbotron").style.marginLeft = "0";
-}
-
 function loadTasks() {
     let tasks = getTasks();
     displayData(tasks);

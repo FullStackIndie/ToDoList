@@ -57,49 +57,47 @@
       </div>
     </nav>
   </header>
-  <div class="jumbotron jumbotron-fluid header" id="jumbotron">
-    <div class="container hero"></div>
-  </div>
+  
   <!--
     TODO: Change The Spacing and alignment
   -->
   <!-- Begin page content -->
 
 
-  <main role="main" class="container-fluid" id="maincontent">
+  <main role="main" class="container-fluid">
     <div id="sidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeSideNav()">&times;</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleSideNav()">&times;</a>
+      <a href="#">Create Task</a>
+      <a href="#">Clear Tasks</a>
+      <div class="dropdown dropright">
+        <a id="filterDropdown" class="dropdown-toggle" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Filter Tasks
+      </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="filterDropdown" aria-expanded="false">
+          <a class="dropdown-item" onclick="filterCompleted()" >Completed</a>
+          <a class="dropdown-item" onclick="filterIncomplete()" >Incomplete</a>
+          <a class="dropdown-item" onclick="filterOverdue()" >Overdue</a>
+          <a class="dropdown-item" onclick="filterTitle()" >Title</a>
+          <a class="dropdown-item" onclick="filterCreated()" >Created</a>
+          <a class="dropdown-item" onclick="filterDueDate()" >Due Date</a>
+          <a class="dropdown-item" onclick="filterShowAll()" >Show All</a>
+        </div>
+      </div>
     </div>
+<a  class="fas fa-align-left" onclick="toggleSideNav()" id="openclosebtn"></a>
 
 
-
-    <div class="container">
-      <i class="fas fa-align-left" onclick="openSideNav()"></i>
-      <div class="row">
-        <div class="col-6">
+    <div class="container" id="maincontent">
+      <div class="row m-2">
+        <div class="col-2 col-md-2 col-sm-2">
           <button onclick="clearModals()" type="button" data-toggle="modal" data-target="#newTask"
             class="btn btn-dark">Create Task</button>
         </div>
+        <div class="col-2 col-md-2 col-sm-2">
         <button onclick="clearAllTasks()" type="button" class="btn btn-dark">Clear All Tasks</button>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Filter Tasks
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" onclick="filterCompleted()" href="#">Completed</a>
-            <a class="dropdown-item" onclick="filterIncomplete()" href="#">Incomplete</a>
-            <a class="dropdown-item" onclick="filterOverdue()" href="#">Overdue</a>
-            <a class="dropdown-item" onclick="filterTitle()" href="#">Title</a>
-            <a class="dropdown-item" onclick="filterCreated()" href="#">Created</a>
-            <a class="dropdown-item" onclick="filterDueDate()" href="#">Due Date</a>
-            <a class="dropdown-item" onclick="filterShowAll()" href="#">Show All</a>
-          </div>
         </div>
+        
       </div>
       <hr>
       <div class="col-6">
