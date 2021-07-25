@@ -145,6 +145,19 @@ background: -webkit-linear-gradient(to left, #365c28, #5ca747);
 /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to left, #365c28, #5ca747);
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+transition:margin-left 0.3s;
+margin-left: 0;
+}
+
+#Footer-BG.active {
+background: #52c234;
+/* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #365c28, #5ca747);
+/* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #365c28, #5ca747);
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+transition:margin-left 0.3s;
+margin-left: 250px;
 }
 
 #navbar-bg {
@@ -155,15 +168,15 @@ background: -webkit-linear-gradient(to left, #365c28, #5ca747);
 background: linear-gradient(to left, #365c28, #5ca747);
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   transition:margin-left 0.3s;
-  margin-top: 0;
+  margin-left: 0;
 }
 
 #navbar-bg.active {
 background: #52c234;
 /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #165200, #52c234);
+background: -webkit-linear-gradient(to left, #365c28, #5ca747);
 /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #165200, #52c234);
+background: linear-gradient(to left, #365c28, #5ca747);
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   transition: margin-left 0.3s;
   margin-left: 250px;
@@ -209,7 +222,6 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #161515e1;
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 60px;
@@ -222,7 +234,6 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #161515e1;
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 60px;
@@ -247,7 +258,7 @@ body {
 }
 
 #filterDropdown:hover {
-    color: #f1f1f1;
+    color: #4ebb30;
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -257,7 +268,7 @@ body {
 
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #4ebb30;
 }
 
 .sidenav .closebtn {
@@ -296,7 +307,7 @@ body {
   margin-left:0;
   height: 1em;
   width: 1em;
-  color: #fefffe;
+  color: #4ebb30;
   position: fixed;
   top: 70px;
   right: 10px;
@@ -306,7 +317,7 @@ body {
 }
 
 #openclosebtn:hover {
-  color:#4ebb30;
+  color:#000;
 }
 
 #openclosebtn.active {

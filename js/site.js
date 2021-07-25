@@ -3,7 +3,9 @@ function toggleSideNav() {
     $("#maincontent").toggleClass("active");
     $("#navbar-bg").toggleClass("active");
     $("#openclosebtn").toggleClass("active");
+    $("#Footer-BG").toggleClass("active");
 }
+
 function loadTasks() {
     let tasks = getTasks();
     displayData(tasks);

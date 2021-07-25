@@ -4,6 +4,7 @@
 <!--
   TODO: Change Title
 -->
+
 <head>
   <title>To Do List</title>
   <!-- Required meta tags -->
@@ -16,13 +17,12 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/css/site.css">
 
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/a9c823f698.js" crossorigin="anonymous"></script>
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Courgette&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&family=M+PLUS+Rounded+1c&display=swap"
+    rel="stylesheet">
 
 </head>
 
@@ -33,7 +33,7 @@
       <!--
         TODO: Change Header name
       -->
-      <a class="navbar-brand" href="#">To Do List</a>
+      <a class="navbar-brand" href="index.html">To Do List</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,16 +47,12 @@
             <a class="nav-link" href="theApp.html">The App</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="seeTheCode.html">See The Code</a>
+            <a class="nav-link" href="https://github.com/murphymUrph21/ToDoList" target="_blank">See The Code</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" href="https://johnmurphyportfolio.netlify.app/" target="_blank">About The Developer</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
   </header>
@@ -67,40 +63,29 @@
   <!-- Begin page content -->
   <main role="main" class="container" id="MainTop-BG">
     <div class="row">
-      <div class="col-9 col-md-9 col-lg-9"><h1>The App</h1></div>
-      <div class="col-9 col-md-9 col-lg-9"><p id="Font">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p> </div>
+      <div class="col-9 col-md-9 col-lg-9">
+        <h1>To Do List with JavaScript</h1>
+      </div>
+      <div class="col-9 col-md-9 col-lg-9">
+        <p>
+          A todo list is a coding challenge to show off the most basic functions of an app in a useful tool for managing daily life.
+          The basic functions I'm referring to are Creating, Retrieving, Updating, and Deleting commonly known as CRUD in software development.
+        </p>
+        <p>
+          This todo list incorporates CRUD by allowing the user to create tasks, edit them, delete them. The application does the retrieving for the user
+          by saving their tasks to their computer and retriving them whenever they visit the website site again.
+        </p>
+      </div>
       <div class="col-3 col-md-3 col-lg-3"><img class="container-fluid" src="/img/js.png" /></div>
     </div>
-
-    <div class="row">
-      <div class="col-9 col-md-9 col-lg-9"><h6>JavaScript Template</h6><pre><code>
-const fs = require("fs-extra") // note: not being used just yet
-const ejs = require("ejs")
-const argv = require("yargs-parser")(process.argv.slice(2))
-const path = require("path")
-
-const main = () => {
-// 1. Welcome log
-console.log("Generating template...")
-try {
-// 2. Destructure args from argv and set _ array to variable "data"
-
-      </code></pre></div>
-      <div class="col-3 col-md-3 col-lg-3"></div>
-      <div class="col-3 col-md-3 col-lg-3"></div>
     </div>
-
-    <div class="row">
-      <div class="col-4 col-md-4 col-lg-4"><img src="/img/coderFoundry.png"/></div>
-      <div class="col-4 col-md-4 col-lg-4"></div>
-      <div class="col-4 col-md-4 col-lg-4"></div>
+    <div class="col">
+      <a class="btn btn-dark" href="theApp.html">The App</a>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
   </main>
 
   <!--
@@ -108,7 +93,7 @@ try {
   -->
   <footer class="footer" id="Footer-BG">
     <div class="container">
-      <span class="text-muted">Template</span>
+      <span class="text-white-50 text-center">&copy; John Murphy 2021</span>
     </div>
   </footer>
 
