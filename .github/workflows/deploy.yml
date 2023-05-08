@@ -1,26 +1,31 @@
-name: Build from Github, Deploy to AWS EC2
+name: Deploy to Linux Server
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
 
 jobs:
- continuous-deployment:
-    runs-on: ubuntu-latest
-    env:
+  upload-resetcache-publish:
+    uses: FullStackIndie/Reusable-Workflows/.github/workflows/Update_deploy_static_website_s3_&_cloudfront_invalidation.yml@main
+    with:
+      folder_path: /var/www/html/js_challenges
+      owner_name: FullStackIndie
+      repo_name: ToDoList
+      source_folder: ./
+      dest_folder: ToDoList
+      invalidation_path: /ToDoList/*
+    secrets:
+      SERVER_SSH_HOST: ${{ secrets.SERVER_SSH_HOST }}
+      SERVER_SSH_USERNAME: ${{ secrets.SERVER_SSH_USERNAME }}
+      SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      SERVER_SSH_PORT: ${{ secrets.SERVER_SSH_PORT }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: us-west-1
-
-    if: github.ref == 'refs/heads/main'
-    steps:
-  # Step 1
-      - name: Create CodeDeploy Deployment
-        run: 
-         aws deploy create-deployment
-            --application-name ToDoList
-            --deployment-group-name ToDoList
-            --deployment-config-name CodeDeployDefault.OneAtATime
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
-  
-  
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      CLOUDFRONT_DITRIBUTION_ID: ${{ secrets.CLOUDFRONT_DITRIBUTION_ID }}
