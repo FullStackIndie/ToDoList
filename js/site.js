@@ -301,7 +301,7 @@ function questionTooltip(icon, isHover) {
 function tooltipShow() {
     $('[data-tooltip="tooltip"]').tooltip({
         delay: {
-            show: 150,
+            show: 100,
             hide: 100
         }
     });
@@ -311,7 +311,26 @@ function tooltipHide() {
     $('[data-tooltip="tooltip"]').tooltip('hide');
 }
 
-function clearAllTasks() {
+
+function deleteTaskAlert(elem) {
+  Swal.fire({
+    title: "Delete This Task?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete this task!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "Your Task has been deleted.", "success");
+      deleteTask(elem);
+    }
+    displayData(getTasks());
+  });
+}
+
+function clearAllTasksAlert() {
     Swal.fire({
         title: 'Delete All Tasks?',
         text: "You won't be able to revert this!",

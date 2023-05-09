@@ -63,8 +63,9 @@
         onmouseenter="tooltipShow()" onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top"
         title="Creates A New Task">Create
         Task</a>
-      <a href="javascript:void(0)" onclick="clearAllTasks()" onmouseenter="tooltipShow()" onmouseleave="tooltipHide()"
-        data-tooltip="tooltip" data-placement="top" title="Deletes All Your Tasks">Clear Tasks</a>
+      <a href="javascript:void(0)" onclick="clearAllTasksAlert()" onmouseenter="tooltipShow()"
+        onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top" title="Deletes All Your Tasks">Clear
+        Tasks</a>
       <div class="dropdown dropright">
         <a id="filterDropdown" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
           onmouseenter="tooltipShow()" onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top"
@@ -82,9 +83,10 @@
         </div>
       </div>
     </div>
-    <a class="fas fa-align-left" onclick="toggleSideNav()" id="openclosebtn" onmouseenter="tooltipShow()"
-      onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="right" title="Open Menu For Filter Options">
-    </a>
+    <button class="fas fa-align-left" type="button" onclick="toggleSideNav()" id="openclosebtn"
+      onmouseenter="tooltipShow()" onfocus="tooltipHide()" data-tooltip="tooltip" data-placement="right"
+      title="Open Menu For Filter Options">
+    </button>
     <div class="container" id="maincontent">
       <div class="row m-2">
         <div class="col-2 col-md-2 col-sm-2">
@@ -94,7 +96,7 @@
             Task</button>
         </div>
         <div class="col-2 col-md-2 col-sm-2">
-          <button onclick="clearAllTasks()" type="button" class="btn btn-dark mr-3" onmouseenter="tooltipShow()"
+          <button onclick="clearAllTasksAlert()" type="button" class="btn btn-dark mr-3" onmouseenter="tooltipShow()"
             onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top" title="Delete All Tasks">Clear All
             Tasks</button>
         </div>
@@ -144,7 +146,7 @@
         Task">
           <i class="fas fa-pencil-alt"></i>
         </button>
-        <button id="btnDelete" onclick="deleteTask(this)" class="btn btn-danger" onmouseenter="tooltipShow()"
+        <button id="btnDelete" onclick="deleteTaskAlert(this)" class="btn btn-danger" onmouseenter="tooltipShow()"
           onmouseleave="tooltipHide()" data-tooltip="tooltip" data-placement="top" title="Delete This Task">
           <i class="far fa-trash-alt"></i>
         </button>
